@@ -2,17 +2,6 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-      <!-- Change me!  Remove this and the corresponding java class when you start adding real plugin content of your own. -->
-       <extension id="proviz.menu"
-               point="org.protege.editor.core.application.EditorKitMenuAction">
-        <name value="Proviz..."/>
-        <class value="template.TemplateMenu"/>
-        <toolTip value="A menu plugin to bootstrap the new plugin process"/>
-        <path value="org.protege.editor.owl.menu.tools/SlotZ-Z"/>
-        <editorKitId value="OWLEditorKit"/>
-    </extension>
-
-      <!-- Change me!  Remove this and the corresponding java class when you start adding real plugin content of your own. -->
     <extension id="proviz.view"
                point="org.protege.editor.core.application.ViewComponent">
         <label value="Proviz"/>
@@ -29,4 +18,5 @@
         <editorKitId value="OWLEditorKit"/>
         <defaultViewConfigFileName value="layout.xml"/>
     </extension>
+
 </plugin>
