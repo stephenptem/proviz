@@ -23,7 +23,7 @@
 
     <extension id="proviz.tab"
                point="org.protege.editor.core.application.WorkspaceTab">
-        <label value="Proviz"/>
+        <label value="ProViz"/>
         <class value="template.TemplateTab"/>
         <index value="X"/>
         <editorKitId value="OWLEditorKit"/>

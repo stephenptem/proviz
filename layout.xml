@@ -3,7 +3,7 @@
     <VSNode splits="1.0">
         <CNode>
             <Component label="Example">
-                <Property id="pluginId" value="example.view"/>
+                <Property id="pluginId" value="proviz.view"/>
             </Component>
         </CNode>
     </VSNode>
