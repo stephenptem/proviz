@@ -15,10 +15,10 @@
          don't worry, you can deal with that when you are ready for maven.
       -->
 	<groupId>edu.stanford.protege</groupId>
-	<artifactId>org.protege.plugin.template</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
-	<name>Dummy plugin</name> 
-	<description>A dummy plugin to jump-start developers</description> 
+	<artifactId>proviz</artifactId>
+	<version>1.0.0</version>
+	<name>ProViz</name>
+	<description>A Protege ontology visualization plugin</description>
 
 
 	<packaging>bundle</packaging>
