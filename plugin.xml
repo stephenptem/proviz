@@ -3,9 +3,9 @@
 <plugin>
 
       <!-- Change me!  Remove this and the corresponding java class when you start adding real plugin content of your own. -->
-       <extension id="example.menu"
+       <extension id="proviz.menu"
                point="org.protege.editor.core.application.EditorKitMenuAction">
-        <name value="Example..."/>
+        <name value="Proviz..."/>
         <class value="template.TemplateMenu"/>
         <toolTip value="A menu plugin to bootstrap the new plugin process"/>
         <path value="org.protege.editor.owl.menu.tools/SlotZ-Z"/>
@@ -13,20 +13,20 @@
     </extension>
 
       <!-- Change me!  Remove this and the corresponding java class when you start adding real plugin content of your own. -->
-    <extension id="example.view"
+    <extension id="proviz.view"
                point="org.protege.editor.core.application.ViewComponent">
-        <label value="Example"/>
+        <label value="Proviz"/>
         <class value="template.TemplateView"/>
        	<headerColor value="@org.protege.ontologycolor"/>
         <category value="@org.protege.ontologycategory"/>
     </extension>
 
-    <extension id="ExampleWorkspaceTab"
+    <extension id="proviz.tab"
                point="org.protege.editor.core.application.WorkspaceTab">
-        <label value="Example Tab"/>
+        <label value="Proviz"/>
         <class value="template.TemplateTab"/>
         <index value="X"/>
         <editorKitId value="OWLEditorKit"/>
-        <defaultViewConfigFileName value="viewconfig-exampleTab.xml"/>
+        <defaultViewConfigFileName value="layout.xml"/>
     </extension>
 </plugin>
