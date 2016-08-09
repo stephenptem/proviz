@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <VSNode splits="1.0">
+        <CNode>
+            <Component label="Example">
+                <Property id="pluginId" value="example.view"/>
+            </Component>
+        </CNode>
+    </VSNode>
+</layout>

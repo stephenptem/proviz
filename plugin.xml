@@ -20,4 +20,13 @@
        	<headerColor value="@org.protege.ontologycolor"/>
         <category value="@org.protege.ontologycategory"/>
     </extension>
+
+    <extension id="ExampleWorkspaceTab"
+               point="org.protege.editor.core.application.WorkspaceTab">
+        <label value="Example Tab"/>
+        <class value="template.TemplateTab"/>
+        <index value="X"/>
+        <editorKitId value="OWLEditorKit"/>
+        <defaultViewConfigFileName value="viewconfig-exampleTab.xml"/>
+    </extension>
 </plugin>
