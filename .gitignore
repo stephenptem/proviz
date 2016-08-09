@@ -1,7 +1,6 @@
 .classpath
 .project
 .settings/
-build.properties
-META-INF/
+.DS_Store
 target/
-
+classes/
