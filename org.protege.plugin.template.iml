@@ -8,7 +8,6 @@
           <property key="Bundle-ClassPath" value="." />
           <property key="Bundle-Vendor" value="The Protege Development Team" />
           <property key="Import-Package" value="org.apache.log4j.*;version=&quot;[1.2,2)&quot;,org.protege.editor.core.*;version=&quot;4.3&quot;,org.protege.editor.owl.*;version=&quot;4.3&quot;,*" />
-          <property key="Private-Package" value="skeleton" />
           <property key="Bundle-Name" value="ProViz" />
           <property key="Include-Resource" value="{plugin.xml=$MODULE_DIR$/src/main/res/plugin.xml},{viewconfig-proviztab.xml=$MODULE_DIR$/src/main/res/viewconfig-proviztab.xml}" />
         </additionalProperties>
