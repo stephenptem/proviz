@@ -1,4 +1,4 @@
-package template;
+package proviz;
 
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.OWLEntityDisplayProvider;
@@ -12,8 +12,7 @@ import javax.swing.*;
  * @author Stephen Temple
  * @version 2016.08.09
  */
-public class TemplateTab extends OWLWorkspaceViewsTab {
-    private static final long serialVersionUID = 749843192372192394L;
+public class ProvizTab extends OWLWorkspaceViewsTab {
 
     private OWLEntityDisplayProvider provider = new OWLEntityDisplayProvider() {
         @Override
@@ -23,7 +22,7 @@ public class TemplateTab extends OWLWorkspaceViewsTab {
 
         @Override
         public JComponent getDisplayComponent() {
-            return TemplateTab.this;
+            return ProvizTab.this;
         }
     };
 

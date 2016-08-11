@@ -1,4 +1,4 @@
-package template;
+package proviz;
 
 import java.awt.BorderLayout;
 
@@ -19,9 +19,9 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * @author redmond
  *
  */
-public class TemplateView extends AbstractOWLViewComponent {
-	private static final long serialVersionUID = 1505057428784911280L;
-	private Logger logger = Logger.getLogger(TemplateView.class);
+public class ProvizView extends AbstractOWLViewComponent {
+
+	private Logger logger = Logger.getLogger(ProvizView.class);
 	private JLabel label;
 	private OWLSelectionModel selectionModel;
 	private OWLSelectionModelListener listener = new OWLSelectionModelListener() {

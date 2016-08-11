@@ -10,5 +10,5 @@ To make this project yours, you will want to make some changes:
           git branch -d -r origin/master
           git remote remove origin
    3. Delete this ReadMe.txt
-   4. Delete the template package and the plugins therein.
+   4. Delete the proviz package and the plugins therein.
    5. Clean up the plugin.xml file.

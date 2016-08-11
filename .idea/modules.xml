@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/org.protege.plugin.template.iml" filepath="$PROJECT_DIR$/org.protege.plugin.template.iml" />
+      <module fileurl="file://$PROJECT_DIR$/org.protege.proviz.iml" filepath="$PROJECT_DIR$/org.protege.proviz.iml" />
     </modules>
   </component>
 </project>
