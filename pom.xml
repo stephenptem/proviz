@@ -8,21 +8,13 @@
 		<version>7</version>
 	</parent>
 
-	<!-- Change me! 
-
-         The next five properties should probably be customized for
-         your project.  If you don't know what to use for groupId,
-         don't worry, you can deal with that when you are ready for maven.
-      -->
 	<groupId>edu.stanford.protege</groupId>
 	<artifactId>proviz</artifactId>
 	<version>1.0.0</version>
+    <packaging>bundle</packaging>
+
 	<name>ProViz</name>
 	<description>A Protege ontology visualization plugin</description>
-
-
-	<packaging>bundle</packaging>
-
 	
 	<dependencies>
 		<dependency>
@@ -45,6 +37,15 @@
 	</dependencies>
 
 	<build>
+
+		<resources>
+			<resource>
+				<!-- Use resource filtering to replace references to the artifactId in the plugin.xml file -->
+				<directory>src/main/res</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
 		<plugins>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -74,15 +75,6 @@
 						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
 						<Private-Package>skeleton</Private-Package>
 					</instructions>
-					<executions>
-						<execution>
-							<id>bundle-manifest</id>
-							<phase>install</phase>
-							<goals>    
-								<goal>manifest</goal>
-							</goals>   
-						</execution>
-					</executions>
 				</configuration>
             </plugin>
             <plugin>
@@ -93,5 +85,7 @@
               </configuration>
             </plugin>
 		</plugins>
+
 	</build>
+
 </project>
