@@ -16,7 +16,7 @@
         <class value="template.TemplateTab"/>
         <index value="X"/>
         <editorKitId value="OWLEditorKit"/>
-        <defaultViewConfigFileName value="layout.xml"/>
+        <defaultViewConfigFileName value="viewconfig-proviztab.xml"/>
     </extension>
 
 </plugin>

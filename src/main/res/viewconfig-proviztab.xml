@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <VSNode splits="1.0">
+        <HSNode splits="0.5">
+            <VSNode splits="0.029774305555555554 0.09522569444444445">
+                <CNode>
+                    <Component label="Class hierarchy">
+                        <Property id="pluginId" value="org.protege.editor.owl.OWLAssertedClassHierarchy"/>
+                    </Component>
+                </CNode>
+                <CNode>
+                    <Component label="Proviz">
+                        <Property id="pluginId" value="proviz.view"/>
+                    </Component>
+                </CNode>
+            </VSNode>
+        </HSNode>
+    </VSNode>
+</layout>
