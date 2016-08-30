@@ -57,5 +57,6 @@
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-parsers:3.4.3" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-tools:3.4.3" level="project" />
     <orderEntry type="library" name="SOVA" level="project" />
+    <orderEntry type="library" name="prefuse" level="project" />
   </component>
 </module>
