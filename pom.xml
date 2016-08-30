@@ -1,89 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>edu.stanford.protege</groupId>
-	<artifactId>proviz</artifactId>
-	<version>1.0.0</version>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <groupId>edu.stanford.protege</groupId>
+    <artifactId>proviz</artifactId>
+    <version>1.1.0</version>
     <packaging>bundle</packaging>
+    <configuration>
+        <encoding>UTF-8</encoding>
+    </configuration>
 
-	<name>ProViz</name>
-	<description>A Protege ontology visualization plugin</description>
-	
-	<dependencies>
-		<dependency>
-			<groupId>edu.stanford.protege</groupId>
-			<artifactId>org.protege.common</artifactId>
-			<version>4.3.0</version>
-		</dependency>
+    <name>ProViz</name>
+    <description>A Protege ontology visualization plugin</description>
 
+    <repositories>
+        <repository>
+            <id>data-local</id>
+            <name>data</name>
+            <url>file://${project.basedir}/repo</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
         <dependency>
-			<groupId>edu.stanford.protege</groupId>
-			<artifactId>org.protege.editor.core.application</artifactId>
-			<version>4.3.0</version>
+            <groupId>edu.stanford.protege</groupId>
+            <artifactId>org.protege.common</artifactId>
+            <version>4.3.0</version>
         </dependency>
 
         <dependency>
-			<groupId>edu.stanford.protege</groupId>
+            <groupId>edu.stanford.protege</groupId>
+            <artifactId>org.protege.editor.core.application</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.stanford.protege</groupId>
             <artifactId>org.protege.editor.owl</artifactId>
-			<version>4.3.0</version>
+            <version>4.3.0</version>
         </dependency>
-	</dependencies>
 
-	<build>
+        <dependency>
+            <groupId>org.pg.eti.kask.sova</groupId>
+            <artifactId>SOVA</artifactId>
+            <version>0.8.5</version>
+        </dependency>
 
-		<resources>
-			<resource>
-				<!-- Use resource filtering to replace references to the artifactId in the plugin.xml file -->
-				<directory>src/main/res</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
+        <dependency>
+            <groupId>org.prefuse</groupId>
+            <artifactId>prefuse</artifactId>
+            <version>beta-20071021</version>
+        </dependency>
+    </dependencies>
 
-		<plugins>
+    <build>
+
+        <plugins>
             <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-compiler-plugin</artifactId>
-              <version>3.0</version>
-              <configuration>
-                <source>1.6</source>
-                <target>1.6</target>
-              </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
             </plugin>
-            <plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.3.7</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Bundle-ClassPath>.</Bundle-ClassPath>
-						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
-						<Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
-						<Import-Package>
-							org.apache.log4j.*;version="[1.2,2)", 
-							org.protege.editor.core.*;version="4.3",
-							org.protege.editor.owl.*;version="4.3",
-							*
-						</Import-Package>
-					</instructions>
-				</configuration>
-            </plugin>
-            <plugin>
-              <artifactId>maven-eclipse-plugin</artifactId>
-              <version>2.9</version>
-              <configuration>
-                <pde>true</pde>
-              </configuration>
-            </plugin>
-		</plugins>
 
-	</build>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-ClassPath>.</Bundle-ClassPath>
+                        <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+                        <Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
+                        <Import-Package>
+                            org.apache.log4j.*;version="[1.2,2)",
+                            org.protege.editor.core.*;version="4.3",
+                            org.protege.editor.owl.*;version="4.3",
+                            !android.*,!com.sun.*,!dalvik.*,!junit.*,!org.apache.avalon.*,!org.apache.log,
+                            !org.apache.lucene.*,!org.apache.tools.*,!org.apache.xml.resolver*,
+                            !org.apache.xmlbeans.impl.*,!org.gjt.*,!org.jaxen.*,!org.relaxng.*,!sun.io,
+                            *
+                        </Import-Package>
+                        <Embed-Dependency>SOVA, prefuse</Embed-Dependency>
+                        <Embed-Transitive>true</Embed-Transitive>
+                        <Include-Resource>
+                            src/main/resources/plugin.xml,
+                            src/main/resources/viewconfig-proviztab.xml
+                        </Include-Resource>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <pde>true</pde>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
 
 </project>

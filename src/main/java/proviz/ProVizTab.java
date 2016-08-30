@@ -12,7 +12,7 @@ import javax.swing.*;
  * @author Stephen Temple
  * @version 2016.08.09
  */
-public class ProvizTab extends OWLWorkspaceViewsTab {
+public class ProVizTab extends OWLWorkspaceViewsTab {
 
     private OWLEntityDisplayProvider provider = new OWLEntityDisplayProvider() {
         @Override
@@ -22,7 +22,7 @@ public class ProvizTab extends OWLWorkspaceViewsTab {
 
         @Override
         public JComponent getDisplayComponent() {
-            return ProvizTab.this;
+            return ProVizTab.this;
         }
     };
 
