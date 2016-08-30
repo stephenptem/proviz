@@ -5,11 +5,14 @@
       <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="proviz-1.0.0.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="" bundleSymbolicName="proviz;singleton:=true" bundleVersion="1.0.0" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
         <additionalProperties>
           <property key="Bundle-Description" value="A Protege ontology visualization plugin" />
-          <property key="Bundle-ClassPath" value="." />
+          <property key="Bundle-ClassPath" value=".,SOVA-0.8.5.jar,prefuse-beta-20071021.jar" />
           <property key="Bundle-Vendor" value="The Protege Development Team" />
-          <property key="Import-Package" value="org.apache.log4j.*;version=&quot;[1.2,2)&quot;,org.protege.editor.core.*;version=&quot;4.3&quot;,org.protege.editor.owl.*;version=&quot;4.3&quot;,*" />
+          <property key="Import-Package" value="org.apache.log4j.*;version=&quot;[1.2,2)&quot;,org.protege.editor.core.*;version=&quot;4.3&quot;,org.protege.editor.owl.*;version=&quot;4.3&quot;,!android.*,!com.sun.*,!dalvik.*,!junit.*,!org.apache.avalon.*,!org.apache.log,!org.apache.lucene.*,!org.apache.tools.*,!org.apache.xml.resolver*,!org.apache.xmlbeans.impl.*,!org.gjt.*,!org.jaxen.*,!org.relaxng.*,!sun.io,*" />
+          <property key="Embed-Dependency" value="SOVA, prefuse" />
+          <property key="Embed-Transitive" value="true" />
+          <property key="Include-Resource" value="SOVA-0.8.5.jar=$MAVEN_REPOSITORY$/org/pg/eti/kask/sova/SOVA/0.8.5/SOVA-0.8.5.jar,prefuse-beta-20071021.jar=$MAVEN_REPOSITORY$/org/prefuse/prefuse/beta-20071021/prefuse-beta-20071021.jar,$MODULE_DIR$/src/main/resources/plugin.xml,$MODULE_DIR$/src/main/resources/viewconfig-proviztab.xml" />
           <property key="Bundle-Name" value="ProViz" />
-          <property key="Include-Resource" value="{plugin.xml=$MODULE_DIR$/src/main/res/plugin.xml},{viewconfig-proviztab.xml=$MODULE_DIR$/src/main/res/viewconfig-proviztab.xml}" />
+          <property key="Embedded-Artifacts" value="SOVA-0.8.5.jar;g=&quot;org.pg.eti.kask.sova&quot;;a=&quot;SOVA&quot;;v=&quot;0.8.5&quot;,prefuse-beta-20071021.jar;g=&quot;org.prefuse&quot;;a=&quot;prefuse&quot;;v=&quot;beta-20071021&quot;" />
         </additionalProperties>
         <additionalJARContents />
       </configuration>
@@ -20,7 +23,7 @@
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -56,7 +59,7 @@
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-impl:3.4.3" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-parsers:3.4.3" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-tools:3.4.3" level="project" />
-    <orderEntry type="library" name="SOVA" level="project" />
-    <orderEntry type="library" name="prefuse" level="project" />
+    <orderEntry type="library" name="Maven: org.pg.eti.kask.sova:SOVA:0.8.5" level="project" />
+    <orderEntry type="library" name="Maven: org.prefuse:prefuse:beta-20071021" level="project" />
   </component>
 </module>
