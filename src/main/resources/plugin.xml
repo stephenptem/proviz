@@ -4,8 +4,8 @@
 
     <extension id="proviz.view"
                point="org.protege.editor.core.application.ViewComponent">
-        <label value="Proviz"/>
-        <class value="proviz.ProvizView"/>
+        <label value="ProViz"/>
+        <class value="proviz.ProVizView"/>
        	<headerColor value="@org.protege.ontologycolor"/>
         <category value="@org.protege.ontologycategory"/>
     </extension>
@@ -13,7 +13,7 @@
     <extension id="proviz.tab"
                point="org.protege.editor.core.application.WorkspaceTab">
         <label value="ProViz"/>
-        <class value="proviz.ProvizTab"/>
+        <class value="proviz.ProVizTab"/>
         <index value="X"/>
         <editorKitId value="OWLEditorKit"/>
         <defaultViewConfigFileName value="viewconfig-proviztab.xml"/>

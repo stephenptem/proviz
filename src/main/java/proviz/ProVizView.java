@@ -10,10 +10,7 @@ import javax.swing.*;
 import org.apache.log4j.Logger;
 import org.pg.eti.kask.sova.utils.ReasonerLoader;
 import org.pg.eti.kask.sova.visualization.OVDisplay;
-import org.protege.editor.owl.model.selection.OWLSelectionModel;
-import org.protege.editor.owl.model.selection.OWLSelectionModelListener;
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
-import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * 
@@ -22,10 +19,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * @author stephen
  *
  */
-public class ProvizView extends AbstractOWLViewComponent {
+public class ProVizView extends AbstractOWLViewComponent {
 
     // Debugging
-	private Logger logger = Logger.getLogger(ProvizView.class);
+	private Logger logger = Logger.getLogger(ProVizView.class);
 
     // SOVA vars
 	private OVDisplay display;
