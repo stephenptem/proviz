@@ -10,7 +10,10 @@ import javax.swing.*;
 import org.apache.log4j.Logger;
 import org.pg.eti.kask.sova.utils.ReasonerLoader;
 import org.pg.eti.kask.sova.visualization.OVDisplay;
+import org.protege.editor.owl.model.selection.OWLSelectionModel;
+import org.protege.editor.owl.model.selection.OWLSelectionModelListener;
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
+import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * 
@@ -34,15 +37,15 @@ public class ProVizView extends AbstractOWLViewComponent {
     private JButton but3 = null;
     private JPanel leftPanel = null, rightPanel = null;
 
-//    // OWL vars
-//	private OWLSelectionModel selectionModel;
-//	private OWLSelectionModelListener listener = new OWLSelectionModelListener() {
-//		@Override
-//		public void selectionChanged() throws Exception {
-//			OWLEntity entity = getOWLWorkspace().getOWLSelectionModel().getSelectedEntity();
-//			updateView(entity);
-//		}
-//	};
+   // OWL vars
+	private OWLSelectionModel selectionModel;
+	private OWLSelectionModelListener listener = new OWLSelectionModelListener() {
+		@Override
+		public void selectionChanged() throws Exception {
+			OWLEntity entity = getOWLWorkspace().getOWLSelectionModel().getSelectedEntity();
+			updateView(entity);
+		}
+	};
 	
 //	@Override
 //	protected void initialiseOWLView() throws Exception {
@@ -53,23 +56,16 @@ public class ProVizView extends AbstractOWLViewComponent {
 //		selectionModel = getOWLWorkspace().getOWLSelectionModel();
 //		selectionModel.addListener(listener);
 //	}
-//	@Override
-//	protected void disposeOWLView() {
-//		selectionModel.removeListener(listener);
-//	}
-//
-//	private void updateView(OWLEntity e) {
-//		if (e != null) {
-//			String entityName = getOWLModelManager().getRendering(e);
-//			label.setText("Hello World! Selected entity = " +  entityName);
-//		}
-//		else {
-//			label.setText("Hello World!");
-//		}
-//	}
+
+	private void updateView(OWLEntity e) {
+		if (e != null) {
+            display.generateTreeFromOWl(getOWLModelManager().getActiveOntology());
+		}
+	}
 
     @Override
     protected void disposeOWLView() {
+        selectionModel.removeListener(listener);
         display.removeDisplayVis();
     }
 

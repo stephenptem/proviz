@@ -10,6 +10,14 @@
         <category value="@org.protege.ontologycategory"/>
     </extension>
 
+    <extension id="proviz.view.prefuseExample"
+               point="org.protege.editor.core.application.ViewComponent">
+        <label value="ProViz Prefuse Example"/>
+        <class value="proviz.ProVizViewPrefuseExample"/>
+        <headerColor value="@org.protege.ontologycolor"/>
+        <category value="@org.protege.ontologycategory"/>
+    </extension>
+
     <extension id="proviz.tab"
                point="org.protege.editor.core.application.WorkspaceTab">
         <label value="ProViz"/>

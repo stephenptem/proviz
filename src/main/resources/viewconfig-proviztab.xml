@@ -10,7 +10,7 @@
                 </CNode>
                 <CNode>
                     <Component label="Proviz">
-                        <Property id="pluginId" value="proviz.view"/>
+                        <Property id="pluginId" value="proviz.view.prefuseExample"/>
                     </Component>
                 </CNode>
             </VSNode>
