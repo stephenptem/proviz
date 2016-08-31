@@ -16,14 +16,6 @@
     <name>ProViz</name>
     <description>A Protege ontology visualization plugin</description>
 
-    <repositories>
-        <repository>
-            <id>data-local</id>
-            <name>data</name>
-            <url>file://${project.basedir}/repo</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>edu.stanford.protege</groupId>
