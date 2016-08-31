@@ -70,24 +70,11 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
         setUpActions();
         setUpDisplay();
 
-        // launch the visualization -------------------------------------
+        // launch the visualization --------------------------------------
 
-        // The following is standard java.awt.
-        // A JFrame is the basic window element in awt.
-        // It has a menu (minimize, maximize, close) and can hold
-        // other gui elements.
-
-        // Create a new panel to hold the visualization.
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.WHITE);
-
-        // The Display object (d) is a subclass of JComponent, which
-        // can be added to JPanel with the add method.
-        panel.add(d);
-
-        // Add the panel to this view component
+        // Add the display to this view component
         setLayout(new BorderLayout());
-        add(panel);
+        add(d);
 
         // We have to start the ActionLists that we added to the visualization
         vis.run("color");
