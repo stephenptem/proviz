@@ -127,7 +127,10 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
 
         // draw the "name" label for NodeItems
         LabelRenderer l = new LabelRenderer("name");
-        l.setRoundedCorner(8, 8); // round the corners
+
+        // Add padding
+        l.setHorizontalPadding(5);
+        l.setVerticalPadding(5);
 
         // create a new default renderer factory
         // return our name label renderer as the default for all non-EdgeItems
@@ -150,7 +153,7 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
         ColorAction fill = new ColorAction("graph.nodes", VisualItem.FILLCOLOR, ColorLib.rgb(0, 200, 0));
 
         // Add a border to the nodes
-        ColorAction border = new ColorAction("graph.nodes", VisualItem.STROKECOLOR, ColorLib.gray(200));
+        ColorAction border = new ColorAction("graph.nodes", VisualItem.STROKECOLOR, ColorLib.gray(100));
 
         // Similarly to the node coloring, we use a ColorAction for the
         // edges
