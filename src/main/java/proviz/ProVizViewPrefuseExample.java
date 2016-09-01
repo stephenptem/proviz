@@ -36,6 +36,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
@@ -53,7 +54,7 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
 
     // prefuse vars
     private Graph graph;
-    private Random rand;
+    private Node root;
     private Visualization vis;
     private Display d;
 
@@ -93,10 +94,21 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
 	private void updateView(OWLEntity e) {
         logger.info("Updating view");
 
-        graph.removeNode(0);
+        if (root != null) {
+            graph.removeNode(root);
+        }
 
-        Node r = graph.addNode();
-        r.set("name", getOWLModelManager().getRendering(e));
+        root = graph.addNode();
+        root.set("name", getOWLModelManager().getRendering(e));
+
+        Set<OWLClass> classes = getOWLModelManager().getActiveOntology().getClassesInSignature();
+
+        for (OWLClass c : classes) {
+            Node n = graph.addNode();
+            n.set("name", c.getIRI().getFragment());
+
+            graph.addEdge(root, n);
+        }
 
         vis.run("repaint");
 	}
