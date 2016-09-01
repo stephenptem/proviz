@@ -1,18 +1,25 @@
 package proviz;
 
 import org.apache.log4j.Logger;
+import org.pg.eti.kask.sova.graph.OWLtoGraphConverter;
 import org.pg.eti.kask.sova.utils.ReasonerLoader;
 import org.pg.eti.kask.sova.visualization.OVDisplay;
 import org.protege.editor.owl.model.selection.OWLSelectionModel;
 import org.protege.editor.owl.model.selection.OWLSelectionModelListener;
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import prefuse.Display;
 import prefuse.Visualization;
 import prefuse.action.ActionList;
 import prefuse.action.RepaintAction;
 import prefuse.action.assignment.ColorAction;
 import prefuse.action.layout.graph.NodeLinkTreeLayout;
+import prefuse.activity.Activity;
 import prefuse.controls.PanControl;
 import prefuse.controls.SubtreeDragControl;
 import prefuse.controls.WheelZoomControl;
@@ -28,7 +35,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.Collection;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * 
@@ -82,37 +91,21 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
 	}
 
 	private void updateView(OWLEntity e) {
-		// TODO: update graph on selected node
+        logger.info("Updating view");
+
+        graph.removeNode(0);
+
+        Node r = graph.addNode();
+        r.set("name", getOWLModelManager().getRendering(e));
+
+        vis.run("repaint");
 	}
 
     // -- 1. load the data ------------------------------------------------
     public void setUpData() {
-        // Here we are manually creating the data structures.  100 nodes are
-        // added to the Graph structure.  100 edges are made randomly
-        // between the nodes.
 
         graph = new Graph();
-
-        graph.addColumn("id", Integer.class);
         graph.addColumn("name", String.class);
-
-        for (int i = 0; i < 10; i++) {
-            Node n = graph.addNode();
-            n.set("id", i);
-            n.set("name", "Node #" + i);
-        }
-
-        graph.addEdge(0, 1);
-        graph.addEdge(1, 2);
-        graph.addEdge(1, 3);
-        graph.addEdge(1, 4);
-        graph.addEdge(2, 5);
-        graph.addEdge(2, 6);
-        graph.addEdge(2, 7);
-        graph.addEdge(7, 8);
-        graph.addEdge(8, 9);
-        graph.addEdge(4, 9);
-
 
         logger.info("Data set up");
     }
@@ -157,7 +150,7 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
         ColorAction fill = new ColorAction("graph.nodes", VisualItem.FILLCOLOR, ColorLib.rgb(0, 200, 0));
 
         // Add a border to the nodes
-        ColorAction border = new ColorAction("graph.nodes", VisualItem.STROKECOLOR, ColorLib.rgb(33, 33, 33));
+        ColorAction border = new ColorAction("graph.nodes", VisualItem.STROKECOLOR, ColorLib.gray(200));
 
         // Similarly to the node coloring, we use a ColorAction for the
         // edges
@@ -185,11 +178,13 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
 
         // We add a RepaintAction so that every time the layout is
         // changed, the Visualization updates it's screen.
-        layout.add(new RepaintAction());
+        ActionList repaint = new ActionList();
+        repaint.add(color);
+        repaint.add(layout);
+        repaint.add(new RepaintAction());
 
         // add the actions to the visualization
-        vis.putAction("color", color);
-        vis.putAction("layout", layout);
+        vis.putAction("repaint", repaint);
 
         logger.info("Actions set up");
     }

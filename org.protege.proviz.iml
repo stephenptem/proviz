@@ -2,7 +2,7 @@
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Osmorc" name="OSGi">
-      <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="proviz-1.1.0.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="" bundleSymbolicName="proviz;singleton:=true" bundleVersion="1.1.0" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
+      <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="proviz-1.2.0.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="" bundleSymbolicName="proviz;singleton:=true" bundleVersion="1.2.0" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
         <additionalProperties>
           <property key="Bundle-Description" value="A Protege ontology visualization plugin" />
           <property key="Bundle-ClassPath" value=".,SOVA-0.8.5.jar,prefuse-beta-20071021.jar" />
@@ -28,6 +28,24 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/prefuse.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/SOVA-0.8.5.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: edu.stanford.protege:org.protege.common:4.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.felix:org.apache.felix.main:4.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.felix:org.apache.felix.framework:4.0.3" level="project" />
@@ -59,23 +77,7 @@
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-impl:3.4.3" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-parsers:3.4.3" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-tools:3.4.3" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/prefuse.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/SOVA-0.8.5.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="Maven: org.pg.eti.kask.sova:SOVA:0.8.5" level="project" />
+    <orderEntry type="library" name="Maven: org.prefuse:prefuse:beta-20071021" level="project" />
   </component>
 </module>
