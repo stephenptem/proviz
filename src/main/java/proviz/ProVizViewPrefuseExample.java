@@ -1,44 +1,29 @@
 package proviz;
 
 import org.apache.log4j.Logger;
-import org.pg.eti.kask.sova.graph.OWLtoGraphConverter;
-import org.pg.eti.kask.sova.utils.ReasonerLoader;
-import org.pg.eti.kask.sova.visualization.OVDisplay;
 import org.protege.editor.owl.model.selection.OWLSelectionModel;
 import org.protege.editor.owl.model.selection.OWLSelectionModelListener;
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.reasoner.NodeSet;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.model.*;
+import prefuse.Constants;
 import prefuse.Display;
 import prefuse.Visualization;
 import prefuse.action.ActionList;
 import prefuse.action.RepaintAction;
 import prefuse.action.assignment.ColorAction;
 import prefuse.action.layout.graph.NodeLinkTreeLayout;
-import prefuse.activity.Activity;
+import prefuse.controls.DragControl;
 import prefuse.controls.PanControl;
-import prefuse.controls.SubtreeDragControl;
 import prefuse.controls.WheelZoomControl;
-import prefuse.data.Graph;
-import prefuse.data.Node;
-import prefuse.render.DefaultRendererFactory;
-import prefuse.render.LabelRenderer;
+import prefuse.data.*;
+import prefuse.render.*;
 import prefuse.util.ColorLib;
 import prefuse.visual.VisualItem;
+import prefuse.visual.sort.TreeDepthItemSorter;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.*;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Set;
+import java.awt.geom.Point2D;
+import java.util.*;
 
 /**
  * 
@@ -47,14 +32,16 @@ import java.util.Set;
  * @author stephen
  *
  */
+@SuppressWarnings("PackageAccessibility")
 public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
 
     // Debugging
 	private Logger logger = Logger.getLogger(ProVizViewPrefuseExample.class);
 
     // prefuse vars
-    private Graph graph;
+    private Graph tree;
     private Node root;
+    private Node thing;
     private Visualization vis;
     private Display d;
 
@@ -87,37 +74,96 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
         add(d);
 
         // We have to start the ActionLists that we added to the visualization
-        vis.run("color");
-        vis.run("layout");
+        vis.run("repaint");
 	}
 
 	private void updateView(OWLEntity e) {
         logger.info("Updating view");
 
-        if (root != null) {
-            graph.removeNode(root);
-        }
+//        if (root != null) {
+//            tree.removeNode(root);
+//        }
+//
+//        root = tree.addNode();
+//        root.set("name", getOWLModelManager().getRendering(e));
 
-        root = graph.addNode();
-        root.set("name", getOWLModelManager().getRendering(e));
 
-        Set<OWLClass> classes = getOWLModelManager().getActiveOntology().getClassesInSignature();
 
-        for (OWLClass c : classes) {
-            Node n = graph.addNode();
-            n.set("name", c.getIRI().getFragment());
-
-            graph.addEdge(root, n);
-        }
-
-        vis.run("repaint");
+//        vis.run("repaint");
 	}
 
     // -- 1. load the data ------------------------------------------------
     public void setUpData() {
 
-        graph = new Graph();
-        graph.addColumn("name", String.class);
+        tree = new Graph();
+        tree.addColumn("name", String.class);
+
+        OWLOntology ontology = getOWLModelManager().getActiveOntology();
+
+        Set<OWLClass> set = ontology.getClassesInSignature(true);
+
+        Hashtable<String, Integer> classes = new Hashtable<String, Integer>();
+
+        for (OWLClass c : set) {
+
+            if (c.isOWLThing()) {
+                // For owl:Thing
+                thing = tree.addNode();
+                thing.set("name", c.getIRI().getFragment());
+
+                classes.put(c.getIRI().getFragment(), thing.getRow());
+                logger.info("Thing: " + c.getIRI().getFragment());
+            } else {
+                // For normal nodes
+                Node n = tree.addNode();
+                n.set("name", c.getIRI().getFragment());
+
+//                if (c.getSuperClasses(ontology).isEmpty()) {
+//                    // If node is a parent node
+//                    tree.addEdge(thing, n);
+//                }
+
+                logger.info("Node: " + c.getIRI().getFragment());
+                classes.put(c.getIRI().getFragment(), n.getRow());
+            }
+
+        }
+
+        for (OWLAxiom axiom : ontology.getAxioms()) {
+
+            if (axiom instanceof OWLSubClassOfAxiom) {
+                int subClassID = -1;
+                int superClassID = -1;
+
+                // SubClass
+                if (((OWLSubClassOfAxiom) axiom).getSubClass() instanceof OWLClass ) {
+                    subClassID = classes.get(((OWLSubClassOfAxiom) axiom).getSubClass().asOWLClass().getIRI().getFragment());
+                }
+
+                // SuperClass
+                if (((OWLSubClassOfAxiom) axiom).getSuperClass() instanceof OWLClass ) {
+                    superClassID = classes.get(((OWLSubClassOfAxiom) axiom).getSuperClass().asOWLClass().getIRI().getFragment());
+                }
+
+                // Only add edge if subclass doesn't already have a parent
+                if (tree.getNode(subClassID).getParent() == null) {
+                    // Add edge
+                    if (subClassID >= 0 && superClassID >= 0) {
+                        tree.addEdge(superClassID, subClassID);
+                        logger.info("Edge: super=" + superClassID + " sub=" + subClassID);
+                    }
+                }
+            }
+
+        }
+
+//        for (int i = 0; i < tree.getNodeCount(); i++) {
+//            if (tree.getNode(i).getParent() == null && tree.getNode(i).getChildCount() == 0) {
+//                tree.removeNode(i);
+//            }
+//        }
+
+//        logger.info("Is valid tree: " + tree.isValidTree());
 
         logger.info("Data set up");
     }
@@ -128,8 +174,8 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
         vis = new Visualization();
 
         // Now we add our previously created Graph object to the visualization.
-        // The graph gets a textual label so that we can refer to it later on.
-        vis.add("graph", graph);
+        // The tree gets a textual label so that we can refer to it later on.
+        vis.add("tree", tree);
 
         logger.info("Visualzation set up");
     }
@@ -156,23 +202,23 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
 
         // -- 4. the processing actions ---------------------------------------
 
-        // We must color the nodes of the graph.
-        // Notice that we refer to the nodes using the text label for the graph,
+        // We must color the nodes of the tree.
+        // Notice that we refer to the nodes using the text label for the tree,
         // and then appending ".nodes".  The same will work for ".edges" when we
         // only want to access those items.
         // The ColorAction must know what to color, what aspect of those
         // items to color, and the color that should be used.
-        ColorAction fill = new ColorAction("graph.nodes", VisualItem.FILLCOLOR, ColorLib.rgb(0, 200, 0));
+        ColorAction fill = new ColorAction("tree.nodes", VisualItem.FILLCOLOR, ColorLib.rgb(0, 200, 0));
 
         // Add a border to the nodes
-        ColorAction border = new ColorAction("graph.nodes", VisualItem.STROKECOLOR, ColorLib.gray(100));
+        ColorAction border = new ColorAction("tree.nodes", VisualItem.STROKECOLOR, ColorLib.gray(0));
 
         // Similarly to the node coloring, we use a ColorAction for the
         // edges
-        ColorAction edges = new ColorAction("graph.edges", VisualItem.STROKECOLOR, ColorLib.gray(200));
+        ColorAction edges = new ColorAction("tree.edges", VisualItem.STROKECOLOR, ColorLib.gray(200));
 
         // use black for node text
-        ColorAction text = new ColorAction("graph.nodes", VisualItem.TEXTCOLOR, ColorLib.gray(0));
+        ColorAction text = new ColorAction("tree.nodes", VisualItem.TEXTCOLOR, ColorLib.gray(0));
 
         // Create an action list containing all color assignments
         // ActionLists are used for actions that will be executed
@@ -188,8 +234,10 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
         ActionList layout = new ActionList();
 
         // We add the layout to the layout ActionList, and tell it
-        // to operate on the "graph".
-        layout.add(new NodeLinkTreeLayout("graph"));
+        // to operate on the "tree".
+        NodeLinkTreeLayout treeLayout = new NodeLinkTreeLayout("tree", Constants.ORIENT_LEFT_RIGHT, 50, 10, 10);
+        treeLayout.setLayoutAnchor(new Point2D.Double(25,300));
+        layout.add(treeLayout);
 
         // We add a RepaintAction so that every time the layout is
         // changed, the Visualization updates it's screen.
@@ -211,12 +259,14 @@ public class ProVizViewPrefuseExample extends AbstractOWLViewComponent {
         // will hold.
         d = new Display(vis);
 
+        // The item sorter that determines the ordering of the visual items
+        d.setItemSorter(new TreeDepthItemSorter());
+
         // We use the addControlListener method to set up interaction.
 
         // The DragControl is a built in class for manually moving
         // nodes with the mouse.
-//        d.addControlListener(new DragControl());
-        d.addControlListener(new SubtreeDragControl());
+        d.addControlListener(new DragControl());
         // Pan with left-click drag on background
         d.addControlListener(new PanControl());
         // Zoom with right-click drag
