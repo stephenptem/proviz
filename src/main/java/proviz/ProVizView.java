@@ -13,6 +13,9 @@ import edu.uci.ics.jung.algorithms.layout.*;
 import edu.uci.ics.jung.graph.*;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
+import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
+import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import org.apache.log4j.Logger;
 import org.protege.editor.owl.model.selection.OWLSelectionModel;
 import org.protege.editor.owl.model.selection.OWLSelectionModelListener;
@@ -109,6 +112,12 @@ public class ProVizView extends AbstractOWLViewComponent {
         // Visualizes the graph
         VisualizationViewer<String, Integer> vv = new VisualizationViewer<String, Integer>(layout);
         vv.setBackground(Color.WHITE);
+
+        vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+//        vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+        DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
+        gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
+        vv.setGraphMouse(gm);
 
         add(vv);
 	}
