@@ -5,11 +5,18 @@
     <extension id="proviz.view"
                point="org.protege.editor.core.application.ViewComponent">
         <label value="ProViz"/>
+        <class value="proviz.ProVizView"/>
+        <headerColor value="@org.protege.ontologycolor"/>
+        <category value="@org.protege.ontologycategory"/>
+    </extension>
+
+    <extension id="proviz.viewJung"
+               point="org.protege.editor.core.application.ViewComponent">
+        <label value="ProViz"/>
         <class value="proviz.ProVizViewJung"/>
        	<headerColor value="@org.protege.ontologycolor"/>
         <category value="@org.protege.ontologycategory"/>
     </extension>
-
 
     <extension id="proviz.tab"
                point="org.protege.editor.core.application.WorkspaceTab">
