@@ -54,7 +54,6 @@ public class ProVizView extends AbstractOWLViewComponent {
 	protected void initialiseOWLView() throws Exception {
         logger.info("Initializing test view");
 
-		setLayout(new BorderLayout());
 
 		selectionModel = getOWLWorkspace().getOWLSelectionModel();
 		selectionModel.addListener(listener);
@@ -104,12 +103,12 @@ public class ProVizView extends AbstractOWLViewComponent {
 
         // Create the layout for the graph
         DAGLayout<String, Integer> layout = new DAGLayout<String, Integer>(g);
-        layout.setSize(new Dimension(800,600));
 
         // Visualizes the graph
         VisualizationViewer<String, Integer> vv = new VisualizationViewer<String, Integer>(layout);
         vv.setBackground(Color.WHITE);
 
+        setLayout(new BorderLayout());
         add(vv);
 	}
 	@Override
