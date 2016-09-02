@@ -5,14 +5,14 @@
       <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="proviz-1.2.2.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="" bundleSymbolicName="proviz;singleton:=true" bundleVersion="1.2.2" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
         <additionalProperties>
           <property key="Bundle-Description" value="A Protege ontology visualization plugin" />
-          <property key="Bundle-ClassPath" value=".,SOVA-0.8.5.jar,prefuse-beta-20071021.jar" />
+          <property key="Bundle-ClassPath" value=".,jung-visualization-2.1.jar,jung-algorithms-2.1.jar,jung-api-2.1.jar,jung-graph-impl-2.1.jar" />
           <property key="Bundle-Vendor" value="The Protege Development Team" />
           <property key="Import-Package" value="org.apache.log4j.*;version=&quot;[1.2,2)&quot;,org.protege.editor.core.*;version=&quot;4.3&quot;,org.protege.editor.owl.*;version=&quot;4.3&quot;,!android.*,!com.sun.*,!dalvik.*,!junit.*,!org.apache.avalon.*,!org.apache.log,!org.apache.lucene.*,!org.apache.tools.*,!org.apache.xml.resolver*,!org.apache.xmlbeans.impl.*,!org.gjt.*,!org.jaxen.*,!org.relaxng.*,!sun.io,*" />
-          <property key="Embed-Dependency" value="SOVA, prefuse" />
+          <property key="Embed-Dependency" value="jung-visualization, jung-algorithms, jung-api, jung-graph-impl" />
           <property key="Embed-Transitive" value="true" />
-          <property key="Include-Resource" value="SOVA-0.8.5.jar=$MAVEN_REPOSITORY$/org/pg/eti/kask/sova/SOVA/0.8.5/SOVA-0.8.5.jar,prefuse-beta-20071021.jar=$MAVEN_REPOSITORY$/org/prefuse/prefuse/beta-20071021/prefuse-beta-20071021.jar,$MODULE_DIR$/src/main/resources/plugin.xml,$MODULE_DIR$/src/main/resources/viewconfig-proviztab.xml" />
+          <property key="Include-Resource" value="jung-visualization-2.1.jar=$MAVEN_REPOSITORY$/net/sf/jung/jung-visualization/2.1/jung-visualization-2.1.jar,jung-algorithms-2.1.jar=$MAVEN_REPOSITORY$/net/sf/jung/jung-algorithms/2.1/jung-algorithms-2.1.jar,jung-api-2.1.jar=$MAVEN_REPOSITORY$/net/sf/jung/jung-api/2.1/jung-api-2.1.jar,jung-graph-impl-2.1.jar=$MAVEN_REPOSITORY$/net/sf/jung/jung-graph-impl/2.1/jung-graph-impl-2.1.jar,$MODULE_DIR$/src/main/resources/plugin.xml,$MODULE_DIR$/src/main/resources/viewconfig-proviztab.xml" />
           <property key="Bundle-Name" value="ProViz" />
-          <property key="Embedded-Artifacts" value="SOVA-0.8.5.jar;g=&quot;org.pg.eti.kask.sova&quot;;a=&quot;SOVA&quot;;v=&quot;0.8.5&quot;,prefuse-beta-20071021.jar;g=&quot;org.prefuse&quot;;a=&quot;prefuse&quot;;v=&quot;beta-20071021&quot;" />
+          <property key="Embedded-Artifacts" value="jung-visualization-2.1.jar;g=&quot;net.sf.jung&quot;;a=&quot;jung-visualization&quot;;v=&quot;2.1&quot;,jung-algorithms-2.1.jar;g=&quot;net.sf.jung&quot;;a=&quot;jung-algorithms&quot;;v=&quot;2.1&quot;,jung-api-2.1.jar;g=&quot;net.sf.jung&quot;;a=&quot;jung-api&quot;;v=&quot;2.1&quot;,jung-graph-impl-2.1.jar;g=&quot;net.sf.jung&quot;;a=&quot;jung-graph-impl&quot;;v=&quot;2.1&quot;" />
         </additionalProperties>
         <additionalJARContents />
       </configuration>
@@ -31,16 +31,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/prefuse.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/SOVA-0.8.5.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/jung-graph-impl-2.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -56,8 +47,6 @@
     <orderEntry type="library" name="Maven: org.eclipse.equinox:common:3.6.200-v20130402-1505" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.mdock:mdock:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.testng:testng:6.8" level="project" />
-    <orderEntry type="library" name="Maven: junit:junit:4.10" level="project" />
-    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.beanshell:bsh:2.0b4" level="project" />
     <orderEntry type="library" name="Maven: com.beust:jcommander:1.27" level="project" />
     <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.6" level="project" />
@@ -77,7 +66,11 @@
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-impl:3.4.3" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-parsers:3.4.3" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-tools:3.4.3" level="project" />
-    <orderEntry type="library" name="Maven: org.pg.eti.kask.sova:SOVA:0.8.5" level="project" />
-    <orderEntry type="library" name="Maven: org.prefuse:prefuse:beta-20071021" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.jung:jung-api:2.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:19.0" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.jung:jung-graph-impl:2.1" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.jung:jung-algorithms:2.1" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.jung:jung-visualization:2.1" level="project" />
   </component>
 </module>
