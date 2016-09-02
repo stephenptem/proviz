@@ -10,7 +10,7 @@
 
     <groupId>edu.stanford.protege</groupId>
     <artifactId>proviz</artifactId>
-    <version>1.3.1</version>
+    <version>1.2.2</version>
     <packaging>bundle</packaging>
 
     <name>ProViz</name>
@@ -40,24 +40,23 @@
             <artifactId>jung-api</artifactId>
             <version>2.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>net.sf.jung</groupId>
+            <artifactId>jung-graph-impl</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jung</groupId>
+            <artifactId>jung-algorithms</artifactId>
+            <version>2.1</version>
+        </dependency>
         <dependency>
             <groupId>net.sf.jung</groupId>
             <artifactId>jung-visualization</artifactId>
             <version>2.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>net.sf.jung</groupId>
-            <artifactId>jung-graph-impl</artifactId>
-            <version>2.1</version>
-        </dependency>
 
-        <dependency>
-            <groupId>net.sf.jung</groupId>
-            <artifactId>jung-algorithms</artifactId>
-            <version>2.1</version>
-        </dependency>
 
     </dependencies>
 
@@ -93,12 +92,7 @@
                             !org.apache.xmlbeans.impl.*,!org.gjt.*,!org.jaxen.*,!org.relaxng.*,!sun.io,
                             *
                         </Import-Package>
-                        <Embed-Dependency>
-                            jung-api,
-                            jung-visualization,
-                            jung-graph-impl,
-                            jung-algorithms
-                        </Embed-Dependency>
+                        <Embed-Dependency>jung-visualization, jung-algorithms, jung-api, jung-graph-impl</Embed-Dependency>
                         <Embed-Transitive>true</Embed-Transitive>
                         <Include-Resource>
                             src/main/resources/plugin.xml,
