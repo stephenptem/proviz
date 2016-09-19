@@ -62,7 +62,7 @@ public class ProVizView extends AbstractOWLViewComponent {
 	
 	@Override
 	protected void initialiseOWLView() throws Exception {
-        logger.info("Initializing test view");
+        logger.info("Initializing ProVizView");
 
 		setLayout(new BorderLayout());
 
@@ -102,6 +102,10 @@ public class ProVizView extends AbstractOWLViewComponent {
         DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
         gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
         vv.setGraphMouse(gm);
+        // Layout tree left-to-right
+        Dimension d = vv.getModel().getGraphLayout().getSize();
+        Point2D center = new Point2D.Double(d.width/2, d.height/2);
+        vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).rotate(-Math.PI/2, center);
 
         add(vv);
 	}
