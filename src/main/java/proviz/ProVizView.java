@@ -91,14 +91,19 @@ public class ProVizView extends AbstractOWLViewComponent {
 
             // Add subclass relationships
             for (OWLClass sub : subClasses) {
-                // Don't add if the subclass is owl:Nothing
+                // Get the subclass name
                 String subclassFragment = sub.getIRI().getFragment();
+
+                // Only add edge if the subclass isn't owl:Nothing
                 if (!subclassFragment.equals("Nothing")) {
-                    g.addEdge(edge, c.getIRI().getFragment(), subclassFragment);
-                    edge++;
+
+                    // Only add edge if the subclass doesn't already have a parent
+                    if (g.getParentEdge(subclassFragment) == null) {
+                        g.addEdge(edge, c.getIRI().getFragment(), subclassFragment);
+                        edge++;
+                    }
                 }
             }
-
         }
 
         // Create the layout for the graph
