@@ -48,6 +48,7 @@ public class ProVizView extends AbstractOWLViewComponent {
 
     // JUNG vars
     private DelegateTree<ProVizNode, ProVizEdge> g;
+    private VisualizationViewer<ProVizNode, ProVizEdge> vv;
 
     // OWL vars
     private OWLReasoner reasoner;
@@ -72,12 +73,8 @@ public class ProVizView extends AbstractOWLViewComponent {
         // Graph<V, E> where V is the type of the vertices and E is the type of the edges
         g = new DelegateTree<ProVizNode, ProVizEdge>();
 
-        // Add some vertices. From above we defined these to be type Integer.
-        OWLOntology ontology = getOWLModelManager().getActiveOntology();
-
+        // Get the reasoner
         reasoner = getOWLModelManager().getReasoner();
-
-        Set<OWLClass> classes = ontology.getClassesInSignature();
 
         // Add root node
         ProVizNode root = new ProVizNode(reasoner.getTopClassNode().getRepresentativeElement());
@@ -91,7 +88,7 @@ public class ProVizView extends AbstractOWLViewComponent {
 
 
         // Visualizes the graph
-        VisualizationViewer<ProVizNode, ProVizEdge> vv = new VisualizationViewer<ProVizNode, ProVizEdge>(layout);
+        vv = new VisualizationViewer<ProVizNode, ProVizEdge>(layout);
         // White background
         vv.setBackground(Color.WHITE);
         // Add labels to nodes
@@ -102,10 +99,6 @@ public class ProVizView extends AbstractOWLViewComponent {
         DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
         gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
         vv.setGraphMouse(gm);
-        // Layout tree left-to-right
-        Dimension d = vv.getModel().getGraphLayout().getSize();
-        Point2D center = new Point2D.Double(d.width/2, d.height/2);
-        vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).rotate(-Math.PI/2, center);
 
         add(vv);
 	}
@@ -115,7 +108,41 @@ public class ProVizView extends AbstractOWLViewComponent {
 	}
 
 	private void updateView(OWLEntity e) {
-		// TODO
+		if (e.isOWLClass()) {
+		    // If selected entity is an OWL class then rebuild the tree from selected node down
+
+            // Delete the old visualization
+            remove(vv);
+
+            // Graph<V, E> where V is the type of the vertices and E is the type of the edges
+            g = new DelegateTree<ProVizNode, ProVizEdge>();
+
+            // Add root node
+            ProVizNode root = new ProVizNode(e.asOWLClass());
+            g.setRoot(root);
+
+            // Recursively add edges
+            addChildEdges(root);
+
+            // Create the layout for the graph
+            TreeLayout<ProVizNode, ProVizEdge> layout = new TreeLayout<ProVizNode, ProVizEdge>(g);
+
+
+            // Visualizes the graph
+            vv = new VisualizationViewer<ProVizNode, ProVizEdge>(layout);
+            // White background
+            vv.setBackground(Color.WHITE);
+            // Add labels to nodes
+            vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+            // Use straight lines for edges
+            vv.getRenderContext().setEdgeShapeTransformer(EdgeShape.line(g));
+            // Add mouse controls
+            DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
+            gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
+            vv.setGraphMouse(gm);
+
+            add(vv);
+        }
 	}
 
 	private void addChildEdges(ProVizNode node) {
