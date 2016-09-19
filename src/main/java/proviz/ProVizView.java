@@ -15,12 +15,16 @@ import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
+import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import org.apache.log4j.Logger;
 import org.protege.editor.owl.model.selection.OWLSelectionModel;
 import org.protege.editor.owl.model.selection.OWLSelectionModelListener;
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.Node;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
  * 
@@ -41,7 +45,7 @@ public class ProVizView extends AbstractOWLViewComponent {
     private JPanel leftPanel = null, rightPanel = null;
 
     // JUNG vars
-    private DirectedSparseGraph<String, Integer> g;
+    private DelegateForest<String, Integer> g;
 
     // OWL vars
 	private OWLSelectionModel selectionModel;
@@ -63,15 +67,17 @@ public class ProVizView extends AbstractOWLViewComponent {
 		selectionModel.addListener(listener);
 
         // Graph<V, E> where V is the type of the vertices and E is the type of the edges
-        g = new DirectedSparseGraph<String, Integer>();
+        g = new DelegateForest<String, Integer>();
 
         // Add some vertices. From above we defined these to be type Integer.
         OWLOntology ontology = getOWLModelManager().getActiveOntology();
 
-        Set<OWLClass> set = ontology.getClassesInSignature(true);
+        OWLReasoner reasoner = getOWLModelManager().getReasoner();
+
+        Set<OWLClass> classes = ontology.getClassesInSignature();
 
         // Add nodes
-        for (OWLClass c : set) {
+        for (OWLClass c : classes) {
 
             g.addVertex(c.getIRI().getFragment());
 
@@ -79,42 +85,31 @@ public class ProVizView extends AbstractOWLViewComponent {
 
         // Add edges
         int edge = 0;
-        for (OWLAxiom axiom : ontology.getAxioms()) {
+        for (OWLClass c : classes) {
+            // Get subclasses
+            Set<OWLClass> subClasses = reasoner.getSubClasses(c, true).getFlattened();
 
-            if (axiom instanceof OWLSubClassOfAxiom) {
-                String subClass = null;
-                String superClass = null;
-
-                // SubClass
-                if (((OWLSubClassOfAxiom) axiom).getSubClass() instanceof OWLClass ) {
-                    subClass = ((OWLSubClassOfAxiom) axiom).getSubClass().asOWLClass().getIRI().getFragment();
-                }
-
-                // SuperClass
-                if (((OWLSubClassOfAxiom) axiom).getSuperClass() instanceof OWLClass ) {
-                    superClass = ((OWLSubClassOfAxiom) axiom).getSuperClass().asOWLClass().getIRI().getFragment();
-                }
-
-                // Add the edge between sub and super classes
-                if (subClass != null && superClass != null) {
-                    g.addEdge(edge, superClass, subClass);
+            // Add subclass relationships
+            for (OWLClass sub : subClasses) {
+                // Don't add if the subclass is owl:Nothing
+                String subclassFragment = sub.getIRI().getFragment();
+                if (!subclassFragment.equals("Nothing")) {
+                    g.addEdge(edge, c.getIRI().getFragment(), subclassFragment);
                     edge++;
                 }
             }
 
         }
 
-
         // Create the layout for the graph
-        DAGLayout<String, Integer> layout = new DAGLayout<String, Integer>(g);
-        layout.setSize(new Dimension(800,600));
+        TreeLayout<String, Integer> layout = new TreeLayout<String, Integer>(g);
 
         // Visualizes the graph
         VisualizationViewer<String, Integer> vv = new VisualizationViewer<String, Integer>(layout);
         vv.setBackground(Color.WHITE);
 
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
-//        vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+        vv.getRenderContext().setEdgeShapeTransformer(EdgeShape.line(g));
         DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
         gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
         vv.setGraphMouse(gm);
