@@ -5,6 +5,7 @@
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/felix/org.apache.felix.main/4.0.3/org.apache.felix.main-4.0.3-javadoc.jar!/" />
+      <root url="http://apache.is.co.za/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/felix/org.apache.felix.main/4.0.3/org.apache.felix.main-4.0.3-sources.jar!/" />
