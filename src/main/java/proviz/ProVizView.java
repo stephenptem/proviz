@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * @author stephen
  *
  */
-public class ProVizView extends AbstractOWLViewComponent implements ActionListener {
+public class ProVizView extends AbstractOWLViewComponent {
 
     // Debugging
 	private Logger logger = Logger.getLogger(ProVizView.class);
@@ -59,16 +59,11 @@ public class ProVizView extends AbstractOWLViewComponent implements ActionListen
 		setLayout(new BorderLayout());
         JPanel menu = new JPanel(new FlowLayout());
 
-        JButton reset = new JButton("Reload");
-        reset.setActionCommand("reload");
-        reset.addActionListener(this);
-        menu.add(reset);
-
-        menu.add(new JLabel("Show depth:"));
+        menu.add(new JLabel("Tree depth:"));
 
         SpinnerModel model = new SpinnerNumberModel(-1, -1, 1000, 1);
         depthSpinner = new JSpinner(model);
-        depthSpinner.setToolTipText("Use -1 to show full tree");
+        depthSpinner.setToolTipText("Use -1 to not restrict depth of tree. Click a class on the left to refresh.");
         menu.add(depthSpinner);
 
         add(menu, BorderLayout.NORTH);
@@ -98,10 +93,6 @@ public class ProVizView extends AbstractOWLViewComponent implements ActionListen
 	private void updateView(OWLEntity e) {
         // If selected entity is an OWL class then rebuild the tree from selected node down
 		if (e.isOWLClass()) {
-
-            // Delete the old visualization
-            remove(viewer);
-
             // Add root node
             ProVizNode root = new ProVizNode(e.asOWLClass());
 
@@ -124,6 +115,11 @@ public class ProVizView extends AbstractOWLViewComponent implements ActionListen
         // Create the layout for the graph
         TreeLayout<ProVizNode, ProVizEdge> layout = new TreeLayout<ProVizNode, ProVizEdge>(tree);
 
+        // Remove the old visualization from the display if there is one
+        try {
+            remove(viewer);
+        } catch (NullPointerException ignored) {}
+
         // Visualizes the graph
         viewer = new VisualizationViewer<ProVizNode, ProVizEdge>(layout);
         // White background
@@ -136,11 +132,8 @@ public class ProVizView extends AbstractOWLViewComponent implements ActionListen
         DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
         gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
         viewer.setGraphMouse(gm);
-        viewer.repaint();
 
         add(viewer);
-
-        viewer.repaint();
     }
 
     /**
@@ -217,23 +210,6 @@ public class ProVizView extends AbstractOWLViewComponent implements ActionListen
                     tree.addChild(new ProVizEdge(node, instanceNode), node, instanceNode);
                 }
             }
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("reload")) {
-            // Delete the old visualization
-            remove(viewer);
-
-            // Get the reasoner
-            OWLReasoner reasoner = getOWLModelManager().getReasoner();
-
-            // Get root node
-            ProVizNode root = new ProVizNode(reasoner.getTopClassNode().getRepresentativeElement());
-
-            // Visualize
-            view(root);
         }
     }
 }
