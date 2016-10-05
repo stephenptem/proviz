@@ -9,8 +9,8 @@ import org.semanticweb.owlapi.model.*;
 import javax.swing.*;
 
 /**
- * @author Stephen Temple
- * @version 2016.08.09
+ * This class is a container class to enable the ProViz tab.
+ * Nothing is done here, all the work is handled in the ProVizView class.
  */
 public class ProVizTab extends OWLWorkspaceViewsTab {
 
@@ -35,7 +35,7 @@ public class ProVizTab extends OWLWorkspaceViewsTab {
     }
 
     /**
-     * Disposes the workspace?
+     * Disposes the workspace.
      */
     public void dispose() {
         getOWLEditorKit().getWorkspace().unregisterOWLEntityDisplayProvider(provider);

@@ -1,8 +1,6 @@
 package proviz;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Set;
 
 import javax.swing.*;
@@ -23,11 +21,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 
 /**
- * 
- * This plugin displays the visualization
- *
- * @author stephen
- *
+ * This class handles the set up and actions contained within the ProViz view.
  */
 public class ProVizView extends AbstractOWLViewComponent {
 
@@ -50,8 +44,12 @@ public class ProVizView extends AbstractOWLViewComponent {
 			updateView(entity);
 		}
 	};
-	
-	@Override
+
+    /**
+     * Creates the view panel on the initial load of the tab.
+     * Sets up the layout manager, the menu bar, and calls to build the graph visualization.
+     */
+    @Override
 	protected void initialiseOWLView() throws Exception {
         logger.info("Initializing ProVizView");
 
@@ -81,13 +79,17 @@ public class ProVizView extends AbstractOWLViewComponent {
         // Visualize
         view(root);
 	}
+
+    /**
+     * Handles the disposal of the view.
+     */
 	@Override
 	protected void disposeOWLView() {
 		selectionModel.removeListener(listener);
 	}
 
     /**
-     * Handles the click events on OWL classes on the left panel
+     * Handles the click events on OWL classes on the left panel.
      * @param e Class that was clicked in the hierarchy
      */
 	private void updateView(OWLEntity e) {
@@ -101,9 +103,10 @@ public class ProVizView extends AbstractOWLViewComponent {
         }
 	}
 
-	/**
-	 * Displays the visualization using JUNG tree layout
-	 **/
+    /**
+     * Displays the visualization using JUNG tree layout.
+     * @param root the root of the ontology encapsulated in a ProVizNode
+     */
 	private void view(ProVizNode root) {
         // Graph<V, E> where V is the type of the vertices and E is the type of the edges
         tree = new DelegateTree<ProVizNode, ProVizEdge>();
@@ -137,8 +140,9 @@ public class ProVizView extends AbstractOWLViewComponent {
     }
 
     /**
-     * Recursively adds edges between a supplied class and all its subclasses and all instances
-     **/
+     * Recursively adds edges between a supplied class and all its subclasses and all instances.
+     * @param node the current node in the ontology that is being processed by the recursion
+     */
     private void addAllEdges(ProVizNode node) {
         // Get the reasoner
         OWLReasoner reasoner = getOWLModelManager().getReasoner();
@@ -172,17 +176,19 @@ public class ProVizView extends AbstractOWLViewComponent {
     }
 
     /**
-     * hasInstances returns true if the supplied node, or any of its children has any instances, and false otherwise
-     **/
-    private boolean hasInstances(OWLClass node){
+     * Returns true if the supplied class, or any of its children has any instances, and false otherwise.
+     * @param owlClass the OWLClass to be checked for instances
+     * @return boolean - whether or not the class or its children has instances
+     */
+    private boolean hasInstances(OWLClass owlClass){
         // Get the reasoner
         OWLReasoner reasoner = getOWLModelManager().getReasoner();
 
-        Set<OWLNamedIndividual> instances = reasoner.getInstances(node, true).getFlattened();
+        Set<OWLNamedIndividual> instances = reasoner.getInstances(owlClass, true).getFlattened();
         if (!instances.isEmpty()){
             return true;}
         else{
-            Set<OWLClass> subClasses = reasoner.getSubClasses(node, true).getFlattened();
+            Set<OWLClass> subClasses = reasoner.getSubClasses(owlClass, true).getFlattened();
             // Check subclasses for instances
             for (OWLClass childClass : subClasses) {
                 // Only check if the subclass isn't owl:Nothing
@@ -195,8 +201,10 @@ public class ProVizView extends AbstractOWLViewComponent {
     }
 
     /**
-     * Adds edges between the supplied node, and all its instances
-     **/
+     * Adds edges between the supplied node, and all its instances.
+     * @param instances Set of instances to be added as children to the node
+     * @param node the node to add the instances too
+     */
     private void addInstances(Set<OWLNamedIndividual> instances, ProVizNode node){
         // Get the reasoner
         OWLReasoner reasoner = getOWLModelManager().getReasoner();
