@@ -1,14 +1,12 @@
+This is a Protégé OWL ontology visualization plugin.
 
-This is a dummy project whose only purpose is to give plugin
-developers a quick jump-start.  While it will 
+The plugin uses the JUNG graph visualization library to build the visualization.
 
-To make this project yours, you will want to make some changes:
-
-   1. Search through the pom.xml for "Change me!" and change
-      the settings to values appropriate to your project.
-   2. Stop tracking of the remote protege git repository:
-          git branch -d -r origin/master
-          git remote remove origin
-   3. Delete this ReadMe.txt
-   4. Delete the template package and the plugins therein.
-   5. Clean up the plugin.xml file.
+To build and install the plugin follow these steps:
+    1. Clone/download the source code from the master branch
+    2. Open as a project in IntelliJ IDEA
+    3. Make the project
+    4. Copy the proviz-x.x.x.zip file out of the target folder
+       into the Java/plugins folder inside the Protégé folder
+    5. Open Protégé
+    6. Enable the ProViz tab by selecting Window > Views > Ontology views > ProViz
