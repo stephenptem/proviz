@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ff24c92e-d73a-42c7-8a80-7765f20c0de2" name="Default" comment="Reset version code to 1.0.0 as first release. Added proper doc comments to all functions. Updated the readme from the dummy text">
+    <list default="true" id="ff24c92e-d73a-42c7-8a80-7765f20c0de2" name="Default" comment="Update to workspace">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="org.protege.plugin.template.iws" />
@@ -52,8 +52,8 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+            <state relative-caret-position="375">
+              <caret line="25" column="20" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -741,14 +741,7 @@
       <workItem from="1474359788406" duration="3677000" />
       <workItem from="1474370313678" duration="8382000" />
       <workItem from="1475658441807" duration="4093000" />
-      <workItem from="1477303892175" duration="208000" />
-    </task>
-    <task id="LOCAL-00009" summary="Remove private package instruction, unused">
-      <created>1470911204217</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1470911204217</updated>
+      <workItem from="1477303892175" duration="255000" />
     </task>
     <task id="LOCAL-00010" summary="Refactored everything to get rid of template naming. Everything is now ProViz!">
       <created>1470917212170</created>
@@ -1086,15 +1079,22 @@
       <option name="project" value="LOCAL" />
       <updated>1475705255070</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Update to workspace">
+      <created>1477304198978</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1477304198979</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="118470000" />
+    <option name="totallyTimeSpent" value="118517000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1108,7 +1108,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1184,7 +1184,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
-    <MESSAGE value="Dependencies now stored in lib directory" />
     <MESSAGE value="Prefuse example view replacing the SOVA visualization view" />
     <MESSAGE value="Add the display straight to the view component, no need for an extra JPanel in between" />
     <MESSAGE value="Version 1.2.0&#10;Building our own visualization using the prefuse library" />
@@ -1209,7 +1208,8 @@
     <MESSAGE value="v.1.4.2: Integrated Jeremy's and Stephen's code.&#10;Visualization now shows instances&#10;Can configure to only show up to a certain depth." />
     <MESSAGE value="Removed the reload button" />
     <MESSAGE value="Reset version code to 1.0.0 as first release. Added proper doc comments to all functions. Updated the readme from the dummy text" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reset version code to 1.0.0 as first release. Added proper doc comments to all functions. Updated the readme from the dummy text" />
+    <MESSAGE value="Update to workspace" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update to workspace" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1593,8 +1593,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+        <state relative-caret-position="375">
+          <caret line="25" column="20" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
           <folding />
         </state>
       </provider>
